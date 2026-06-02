@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}My Alerts | Vanguard Creative{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div>
+                <h1 class="font-outfit font-extrabold text-3xl text-white">System Alerts Log</h1>
+                <p class="text-xs text-slate-400 mt-1">Review historical notifications, quote alerts, and transaction statuses.</p>
+            </div>
+            
+            {% if unread_notifications_count > 0 %}
+                <a href="{% url 'notifications:mark_all_read' %}" class="px-4 py-2 border border-slate-800 hover:bg-slate-900 rounded-xl text-slate-300 font-semibold text-xs transition-colors"><i class="fa-solid fa-envelope-open mr-1"></i> Mark All as Read</a>
+            {% endif %}
+        </div>
+
+        <!-- List -->
+        <div class="space-y-4">
+            {% for n in notifications %}
+                <div class="p-5 rounded-2xl border transition-all duration-300 glass-card flex items-start gap-4 hover:border-slate-800/80
+                    {% if not n.read_status %} border-indigo-500/20 bg-slate-900/40 glow-indigo {% else %} border-slate-800 bg-slate-900/10 {% endif %}">
+                    
+                    <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-lg shrink-0
+                        {% if not n.read_status %} text-indigo-400 {% else %} text-slate-500 {% endif %}">
+                        <i class="fa-solid fa-bell-concierge"></i>
+                    </div>
+                    
+                    <div class="space-y-1 flex-grow">
+                        <div class="flex justify-between items-start gap-4">
+                            <h3 class="font-outfit font-bold text-slate-200 text-sm md:text-base leading-tight">{{ n.title }}</h3>
+                            <span class="text-[10px] text-slate-500 shrink-0"><i class="fa-regular fa-clock mr-1"></i>{{ n.created_at|date:"Y-m-d H:i" }}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed font-light whitespace-pre-line">{{ n.message }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="py-16 text-center text-slate-500 rounded-2xl border border-slate-900 glass-card">
+                    <i class="fa-regular fa-envelope-open text-3xl mb-4 block"></i>
+                    <p class="text-sm font-semibold">Your alert log is completely clear</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}

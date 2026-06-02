@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Vanguard Creative | Premium Creative Media Agency{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 bg-gradient-to-b from-slate-950 via-indigo-950/20 to-slate-950">
+    <!-- Glow effects -->
+    <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[450px] h-[450px] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-400 font-outfit text-xs font-semibold uppercase tracking-wider mb-6 animate-pulse">
+            <i class="fa-solid fa-star text-[10px]"></i> Creative Production Studio
+        </span>
+        <h1 class="font-outfit text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight max-w-4xl mx-auto">
+            WE CAPTURE <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-indigo-500">CINEMATIC STORIES</span> THAT DRIVE IMPACT
+        </h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+            Vanguard Creative is a premier creative media agency. From cinematic commercials to bespoke visual campaigns, we turn bold concepts into high-performing digital masterpieces.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="{% url 'bookings:create' %}" class="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/40 transition-all hover:scale-[1.03] flex items-center justify-center gap-2 group">
+                Book a Media Service
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="{% url 'website:portfolio' %}" class="w-full sm:w-auto px-8 py-4 bg-slate-900/60 border border-slate-800 hover:border-slate-700 text-slate-200 font-semibold rounded-xl glass-card transition-all hover:scale-[1.03] flex items-center justify-center gap-2">
+                Explore Portfolio
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT AGENCY -->
+<section class="py-24 border-t border-slate-900/80 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Graphics Card Mockup -->
+            <div class="relative group">
+                <div class="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border border-slate-800/80 aspect-video flex items-center justify-center p-8 text-center min-h-[300px]">
+                    <div class="space-y-4">
+                        <div class="w-16 h-16 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-clapperboard"></i></div>
+                        <h4 class="font-outfit font-bold text-xl text-white">Full-Scale Digital Studio</h4>
+                        <p class="text-slate-400 text-sm max-w-sm mx-auto">Equipped with cinematic drones, high-frame-rate studio rigs, and advanced VFX pipelines to deliver world-class deliverables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copy -->
+            <div class="space-y-6">
+                <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Who We Are</span>
+                <h2 class="font-outfit text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+                    Innovative creative visionaries crafting beautiful brand narratives
+                </h2>
+                <p class="text-slate-400 leading-relaxed font-light">
+                    Founded in Phnom Penh, Vanguard Creative serves fast-growing brands across the globe. Our squad unites expert directors, editors, colorists, brand developers, and drone operators driven by one shared obsession: visual perfection.
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light">
+                    We manage the entire project lifecycle inside a single platform. Log in, request custom quotes, pay seamlessly via mock ABA, and download final media packages in 4K resolution directly from your private workspace.
+                </p>
+                
+                <div class="flex items-center gap-8 pt-4">
+                    <div>
+                        <span class="font-outfit font-black text-3xl text-indigo-400 block">150+</span>
+                        <span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Completed Projects</span>
+                    </div>
+                    <div class="border-l border-slate-800 h-10"></div>
+                    <div>
+                        <span class="font-outfit font-black text-3xl text-indigo-400 block">99%</span>
+                        <span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Client Satisfaction</span>
+                    </div>
+                    <div class="border-l border-slate-800 h-10"></div>
+                    <div>
+                        <span class="font-outfit font-black text-3xl text-indigo-400 block">10+</span>
+                        <span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Predefined Services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES OVERVIEW -->
+<section class="py-24 border-t border-slate-900 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-4 mb-16">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Our Offerings</span>
+            <h2 class="font-outfit text-3xl md:text-4xl font-bold text-white tracking-tight">Creative Production Offerings</h2>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Pick from our predefined creative media packages or requests a fully customized solution.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for s in services %}
+                <div class="rounded-2xl p-6 glass-card glow-indigo hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full group">
+                    <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-md">
+                        <i class="fa-solid fa-photo-film"></i>
+                    </div>
+                    <h3 class="font-outfit font-bold text-xl text-white mb-3">{{ s.name }}</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6 flex-grow font-light">{{ s.description|truncatechars:120 }}</p>
+                    
+                    <div class="flex justify-between items-center mt-auto pt-6 border-t border-slate-800/80">
+                        <div>
+                            <span class="text-slate-500 text-[10px] uppercase font-semibold block">Starting from</span>
+                            <span class="font-outfit font-extrabold text-lg text-white">${{ s.starting_price|floatformat:2 }}</span>
+                        </div>
+                        <a href="{% url 'bookings:create' %}?service={{ s.id }}" class="px-4 py-2 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white font-semibold text-xs rounded-lg border border-indigo-500/20 group-hover:border-transparent transition-all">Book Now</a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-span-full py-10 text-center text-slate-500">
+                    No active services found. Seed database to load predefined services.
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'website:services' %}" class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-semibold text-sm transition-colors group">
+                View all predefined services <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- THE PRODUCTION TIMELINE WORKFLOW -->
+<section class="py-24 border-t border-slate-900 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-4 mb-20">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">How it works</span>
+            <h2 class="font-outfit text-3xl md:text-4xl font-bold text-white tracking-tight">Transparent Agency Workflow</h2>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">From initial online brief to final deliverable downloads. Fully trackable on your private dashboard.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+            <!-- 1. Book -->
+            <div class="space-y-4 text-center md:text-left relative group">
+                <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center font-outfit font-black text-lg text-indigo-400 mx-auto md:mx-0 shadow-lg shadow-indigo-600/10">1</div>
+                <h4 class="font-outfit font-bold text-lg text-white">Book Online</h4>
+                <p class="text-slate-400 text-xs leading-relaxed font-light">Submit your creative brief, budget, target deadlines, and requirement mockups inside our platform.</p>
+            </div>
+            
+            <!-- 2. Quotation -->
+            <div class="space-y-4 text-center md:text-left relative group">
+                <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center font-outfit font-black text-lg text-indigo-400 mx-auto md:mx-0 shadow-lg shadow-indigo-600/10">2</div>
+                <h4 class="font-outfit font-bold text-lg text-white">Receive Quotation</h4>
+                <p class="text-slate-400 text-xs leading-relaxed font-light">Our directors review your requirements and generate a detailed scope document and price quotation.</p>
+            </div>
+
+            <!-- 3. Make Payment -->
+            <div class="space-y-4 text-center md:text-left relative group">
+                <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center font-outfit font-black text-lg text-indigo-400 mx-auto md:mx-0 shadow-lg shadow-indigo-600/10">3</div>
+                <h4 class="font-outfit font-bold text-lg text-white">Secure Transfer</h4>
+                <p class="text-slate-400 text-xs leading-relaxed font-light">Accept the quotation and submit transfer proof seamlessly using our mock ABA QR code screen.</p>
+            </div>
+
+            <!-- 4. Production -->
+            <div class="space-y-4 text-center md:text-left relative group">
+                <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center font-outfit font-black text-lg text-indigo-400 mx-auto md:mx-0 shadow-lg shadow-indigo-600/10">4</div>
+                <h4 class="font-outfit font-bold text-lg text-white">Production Launch</h4>
+                <p class="text-slate-400 text-xs leading-relaxed font-light">Our crew begins filming or designing. Track active completion bars from 0% to 100% on your dashboard.</p>
+            </div>
+
+            <!-- 5. Deliver -->
+            <div class="space-y-4 text-center md:text-left relative group">
+                <div class="w-12 h-12 rounded-full bg-indigo-600 border border-indigo-500 flex items-center justify-center font-outfit font-black text-lg text-white mx-auto md:mx-0 shadow-lg shadow-indigo-600/40">5</div>
+                <h4 class="font-outfit font-bold text-lg text-white">Final Download</h4>
+                <p class="text-slate-400 text-xs leading-relaxed font-light">Review and download production deliverables (4K videos, source PSDs, raw files) straight from your portal.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-24 border-t border-slate-900 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center space-y-4 mb-16">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Client Reviews</span>
+            <h2 class="font-outfit text-3xl md:text-4xl font-bold text-white tracking-tight">Trusted by Industry Leaders</h2>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Read what business directors say about their collaborative experience with Vanguard Creative.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="p-6 rounded-2xl glass-card relative flex flex-col justify-between">
+                <span class="text-indigo-500 text-4xl font-serif absolute top-4 right-6 opacity-20">“</span>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                    "The production quality Vanguard delivered for our SaaS commercial was outstanding. Their dashboard allowed us to track editing changes in real-time, which saved us weeks of email tag."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-slate-800">
+                    <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center font-bold font-outfit">SK</div>
+                    <div>
+                        <h4 class="font-outfit font-bold text-sm text-white">Sok Kosal</h4>
+                        <span class="text-slate-500 text-xs">Product Lead, Pathify</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="p-6 rounded-2xl glass-card relative flex flex-col justify-between">
+                <span class="text-indigo-500 text-4xl font-serif absolute top-4 right-6 opacity-20">“</span>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                    "Vanguard's Drone videography and visual brand guidelines elevated our real estate campaign. The manual ABA QR payment proof submission was simple and extremely secure."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-slate-800">
+                    <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center font-bold font-outfit">LN</div>
+                    <div>
+                        <h4 class="font-outfit font-bold text-sm text-white">Lim Nari</h4>
+                        <span class="text-slate-500 text-xs">Marketing Director, Urban Living</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="p-6 rounded-2xl glass-card relative flex flex-col justify-between">
+                <span class="text-indigo-500 text-4xl font-serif absolute top-4 right-6 opacity-20">“</span>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6 font-light">
+                    "From customized quotation request to download links for our motion logo pack, their modular dashboard is revolutionary. Outstanding team and elite creatives."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-slate-800">
+                    <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center font-bold font-outfit">TC</div>
+                    <div>
+                        <h4 class="font-outfit font-bold text-sm text-white">Tep Chan</h4>
+                        <span class="text-slate-500 text-xs">CEO, Apex Branding</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT FORM INTEGRATION -->
+<section class="py-24 border-t border-slate-900 bg-slate-950 relative" id="contact-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-6">
+                <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Connect With Us</span>
+                <h2 class="font-outfit text-3xl md:text-4xl font-bold text-white tracking-tight">Let's craft something legendary together</h2>
+                <p class="text-slate-400 leading-relaxed font-light">
+                    Got an upcoming project, specific production request, or custom digital marketing brief? Leave a message, and our accounts team will email you back within 2 business hours.
+                </p>
+                
+                <div class="space-y-4 pt-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center"><i class="fa-solid fa-map-location"></i></div>
+                        <div>
+                            <h5 class="text-slate-400 text-xs uppercase font-semibold">Headquarters</h5>
+                            <p class="text-sm font-medium text-slate-200">Diamond Island, Phnom Penh, Cambodia</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h5 class="text-slate-400 text-xs uppercase font-semibold">Email</h5>
+                            <p class="text-sm font-medium text-slate-200">hello@vanguardcreative.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrated Form -->
+            <div class="p-8 rounded-2xl glass-card glow-indigo">
+                <h3 class="font-outfit font-bold text-2xl text-white mb-6">Send an Inquiry</h3>
+                <form method="POST" action="{% url 'website:home' %}#contact-section" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Full Name</label>
+                        {{ contact_form.name }}
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Email Address</label>
+                            {{ contact_form.email }}
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Subject</label>
+                            {{ contact_form.subject }}
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Message Details</label>
+                        {{ contact_form.message }}
+                    </div>
+                    
+                    <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        Submit Inquiry <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-24 border-t border-slate-900 bg-slate-950 text-center relative overflow-hidden">
+    <!-- background accent shapes -->
+    <div class="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-indigo-600/5 rounded-full blur-[80px] pointer-events-none"></div>
+    
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+        <h2 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Ready to elevate your digital presence?</h2>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto font-light">Join our portal today to receive high-end quotes and coordinate production seamlessly with Cambodia's leading media agency.</p>
+        
+        <div class="pt-6">
+            {% if user.is_authenticated %}
+                <a href="{% url 'bookings:create' %}" class="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/40 transition-all hover:scale-[1.03] group">
+                    Launch New Project Booking <i class="fa-solid fa-circle-plus group-hover:scale-110 transition-transform"></i>
+                </a>
+            {% else %}
+                <a href="{% url 'accounts:register' %}" class="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/40 transition-all hover:scale-[1.03] group">
+                    Register a Client Account <i class="fa-solid fa-user-plus group-hover:scale-105 transition-transform"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

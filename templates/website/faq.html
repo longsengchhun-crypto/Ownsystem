@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQs | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-slate-950 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-20">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Help Desk</span>
+            <h1 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Find answers to common questions regarding timelines, quotes, payments, and file deliveries.</p>
+        </div>
+
+        <!-- FAQs Accordions -->
+        <div class="space-y-4" id="faq-accordions">
+            
+            <!-- FAQ 1 -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden glass-card transition-all">
+                <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-900/40 focus:outline-none faq-btn">
+                    <span class="font-outfit font-semibold text-slate-200">How do I book a creative media service?</span>
+                    <i class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Simply click "Book Now" on any service or use our "Launch New Project" forms. Fill out your project title, general description, estimated budget, and targets date, then upload any requirement specifications. Once submitted, our production team will immediately review your project outline.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden glass-card transition-all">
+                <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-900/40 focus:outline-none faq-btn">
+                    <span class="font-outfit font-semibold text-slate-200">How long does it take to receive a quotation?</span>
+                    <i class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Our team generally processes and releases detailed price estimations and service breakdown structures within 2 business hours. You'll receive both an email notification and an alert bubble in your portal.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden glass-card transition-all">
+                <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-900/40 focus:outline-none faq-btn">
+                    <span class="font-outfit font-semibold text-slate-200">How does the manual bank transfer payment system work?</span>
+                    <i class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Once you accept a quotation, a secure instructions screen pops up displaying our corporate ABA Bank account name, number, and a premium ABA pay QR code mockup. Complete the manual transfer inside your bank app, take a screenshot of your payment receipt, log the reference string, and upload the proof file. Our finance team will verify the screenshot and launch production immediately.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden glass-card transition-all">
+                <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-900/40 focus:outline-none faq-btn">
+                    <span class="font-outfit font-semibold text-slate-200">Can I track my creative project's progress?</span>
+                    <i class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Yes! Your client dashboard provides a dynamic timeline progress bar tracking completion from 0% to 100%. Admins post routine technical milestone updates, production logs, and draft reviews visible to you at any time.
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/30 overflow-hidden glass-card transition-all">
+                <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-900/40 focus:outline-none faq-btn">
+                    <span class="font-outfit font-semibold text-slate-200">How do I download my finished files?</span>
+                    <i class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    When progress reaches 100%, our media coordinators compile final assets (including commercial 4K video clips, source vector designs, and premium digital files) and attach them directly to your project. You can preview, check, and download files straight from the "Deliverables Vault" on your dashboard.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Accordion script
+    const faqButtons = document.querySelectorAll('.faq-btn');
+    faqButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            
+            // Toggle visibility
+            content.classList.toggle('hidden');
+            
+            // Rotate icon
+            if (content.classList.contains('hidden')) {
+                icon.style.transform = 'rotate(0deg)';
+                btn.parentElement.classList.remove('border-indigo-500/30');
+            } else {
+                icon.style.transform = 'rotate(180deg)';
+                btn.parentElement.classList.add('border-indigo-500/30');
+            }
+        });
+    });
+</script>
+{% endblock %}

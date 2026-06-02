@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-gradient-to-b from-slate-950 to-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-20">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Our Story</span>
+            <h1 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Crafting Creative Masterpieces</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Learn more about our agency history, values, and visual directors.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+            <div class="space-y-6">
+                <h2 class="font-outfit text-3xl font-bold text-white tracking-tight leading-tight">About Vanguard Creative</h2>
+                <p class="text-slate-400 leading-relaxed font-light">
+                    Founded in Phnom Penh in 2022, Vanguard Creative has quickly emerged as one of Southeast Asia's premium visual production firms. We empower brands by generating cinema-grade videos, striking commercial photography, tailored visual guidelines, and multi-cam livestream setups.
+                </p>
+                <p class="text-slate-400 leading-relaxed font-light">
+                    We believe the path to high-end content should be simple and structured. By merging specialized creative professionals with our integrated client portal software, we provide clear timelines, transparent scope quotations, and high-fidelity project assets in one seamless ledger.
+                </p>
+            </div>
+            
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 glass-card">
+                <h3 class="font-outfit font-bold text-xl text-white mb-6">Why Brands Choose Vanguard</h3>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-circle-check text-indigo-400 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Predefined Solutions</h4>
+                            <p class="text-xs text-slate-400 mt-1">Simple transparent starting prices for 10 standard media services.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-circle-check text-indigo-400 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Dynamic Trackable Timelines</h4>
+                            <p class="text-xs text-slate-400 mt-1">Follow exact production progress milestones in real-time from 0% to 100%.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <i class="fa-solid fa-circle-check text-indigo-400 text-lg mt-1"></i>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Bespoke Production Workspace</h4>
+                            <p class="text-xs text-slate-400 mt-1">Download source files and cinema package formats directly from your private workspace.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-28">
+            <div class="p-8 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-600/10 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
+                <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg mb-6"><i class="fa-solid fa-bullseye"></i></div>
+                <h3 class="font-outfit font-bold text-2xl text-white mb-4">Our Mission</h3>
+                <p class="text-slate-400 text-sm leading-relaxed font-light">
+                    To deliver premium creative and visual production standards that enable organizations to articulate their narratives beautifully, connect deeply with digital communities, and drive measurable brand performance.
+                </p>
+            </div>
+
+            <div class="p-8 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-violet-600/10 rounded-full blur-xl group-hover:scale-110 transition-transform"></div>
+                <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg mb-6"><i class="fa-solid fa-eye"></i></div>
+                <h3 class="font-outfit font-bold text-2xl text-white mb-4">Our Vision</h3>
+                <p class="text-slate-400 text-sm leading-relaxed font-light">
+                    To redefine traditional media production pipelines, establishing Cambodia's leading digital platform for creative talent collaboration, state-of-the-art cinematic outputs, and transparent agency services.
+                </p>
+            </div>
+        </div>
+
+        <!-- Team Information -->
+        <div>
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Meet the Crew</span>
+                <h2 class="font-outfit text-3xl font-bold text-white tracking-tight">Our Executive Directors</h2>
+                <p class="text-slate-400 max-w-xl mx-auto font-light">Meet the award-winning cinematic designers steering the visual helm at Vanguard Creative.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Member 1 -->
+                <div class="p-6 rounded-2xl glass-card text-center group">
+                    <div class="w-24 h-24 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center text-3xl font-black font-outfit mx-auto mb-6 group-hover:scale-105 transition-transform">SC</div>
+                    <h4 class="font-outfit font-bold text-lg text-white">SENG CHHUN</h4>
+                    <p class="text-indigo-400 text-xs mt-1 uppercase tracking-wider font-semibold">Founder & Creative Director</p>
+                    <p class="text-slate-500 text-xs mt-4 leading-relaxed font-light">Cinematic visual veteran with over 8 years directing regional commercials.</p>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="p-6 rounded-2xl glass-card text-center group">
+                    <div class="w-24 h-24 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center text-3xl font-black font-outfit mx-auto mb-6 group-hover:scale-105 transition-transform">SM</div>
+                    <h4 class="font-outfit font-bold text-lg text-white">Tek Lengvannadalis</h4>
+                    <p class="text-indigo-400 text-xs mt-1 uppercase tracking-wider font-semibold">Chief of Videography</p>
+                    <p class="text-slate-500 text-xs mt-4 leading-relaxed font-light">Experienced director of photography specializing in complex aerial drone loops.</p>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="p-6 rounded-2xl glass-card text-center group">
+                    <div class="w-24 h-24 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center text-3xl font-black font-outfit mx-auto mb-6 group-hover:scale-105 transition-transform">KS</div>
+                    <h4 class="font-outfit font-bold text-lg text-white">Khen KhanTakvan</h4>
+                    <p class="text-indigo-400 text-xs mt-1 uppercase tracking-wider font-semibold">Lead Graphic Designer</p>
+                    <p class="text-slate-500 text-xs mt-4 leading-relaxed font-light">Vector illustrator and typography expert responsible for agency UI layouts.</p>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="p-6 rounded-2xl glass-card text-center group">
+                    <div class="w-24 h-24 bg-indigo-600/20 text-indigo-400 rounded-full flex items-center justify-center text-3xl font-black font-outfit mx-auto mb-6 group-hover:scale-105 transition-transform">CR</div>
+                    <h4 class="font-outfit font-bold text-lg text-white">Phoeun Seyha</h4>
+                    <p class="text-indigo-400 text-xs mt-1 uppercase tracking-wider font-semibold">Lead Editor & Colorist</p>
+                    <p class="text-slate-500 text-xs mt-4 leading-relaxed font-light">Certified DaVinci editor crafting dynamic visual flow sequences.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

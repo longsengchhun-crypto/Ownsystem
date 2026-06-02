@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Issue Quotation | Vanguard Creative{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-950">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{% url 'bookings:detail' booking_id=booking.booking_id %}" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Booking</a>
+            <h1 class="font-outfit font-extrabold text-3xl text-white mt-2">Generate Quotation</h1>
+            <p class="text-xs text-slate-400 mt-1">Issue official pricing structures and service breakdowns for booking <b>{{ booking.booking_id }}</b>.</p>
+        </div>
+
+        <div class="p-8 rounded-2xl glass-card glow-indigo">
+            <form method="POST" action="{% url 'quotations:create' booking_id=booking.booking_id %}" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="p-4 rounded-lg bg-rose-950/20 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+                        Please correct the errors in the fields below.
+                    </div>
+                {% endif %}
+
+                <!-- Brief Reference Panel -->
+                <div class="p-4 border border-slate-800 bg-slate-900/30 rounded-xl space-y-2 text-xs">
+                    <p class="text-slate-300 font-semibold uppercase tracking-wider text-[10px]">Client Brief Summary:</p>
+                    <p class="text-slate-400"><b>Title:</b> {{ booking.project_title }}</p>
+                    <p class="text-slate-400"><b>Client Estimated Budget:</b> ${{ booking.budget|floatformat:2 }}</p>
+                    <p class="text-slate-400"><b>Deadline Required:</b> {{ booking.deadline|date:"F d, Y" }}</p>
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Price Quoted ($ USD)</label>
+                    {{ form.amount }}
+                    {% if form.amount.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.amount.errors }}</span>{% endif %}
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Estimated Production Timeline</label>
+                    {{ form.estimated_delivery_time }}
+                    {% if form.estimated_delivery_time.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.estimated_delivery_time.errors }}</span>{% endif %}
+                    <span class="text-[10px] text-slate-500 block mt-1"><i class="fa-solid fa-circle-info mr-1"></i>e.g., 5 business days, 2 weeks from payment approval.</span>
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Cost Breakdown & Scope Details</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.description.errors }}</span>{% endif %}
+                </div>
+
+                <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+                    <a href="{% url 'bookings:detail' booking_id=booking.booking_id %}" class="px-5 py-3 border border-slate-800 hover:bg-slate-900 rounded-xl font-semibold text-sm transition-colors text-slate-300">Cancel</a>
+                    <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/35 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        Send Quotation Offer <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Services | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-20">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Agency Services</span>
+            <h1 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Creative Production Packages</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Explore our range of predefined professional creative services designed to accommodate diverse creative objectives.</p>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for s in services %}
+                <div class="rounded-2xl p-8 glass-card glow-indigo hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group">
+                    <div class="space-y-6">
+                        <div class="w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-xl group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-lg">
+                            <i class="fa-solid fa-photo-film"></i>
+                        </div>
+                        <h3 class="font-outfit font-bold text-2xl text-white group-hover:text-indigo-400 transition-colors">{{ s.name }}</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">{{ s.description }}</p>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="text-slate-500 text-[10px] uppercase font-semibold block">Starting Price</span>
+                            <span class="font-outfit font-extrabold text-2xl text-white">${{ s.starting_price|floatformat:2 }}</span>
+                        </div>
+                        <a href="{% url 'bookings:create' %}?service={{ s.id }}" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02] flex items-center gap-2">
+                            Book Now <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-span-full py-20 text-center text-slate-500">
+                    <i class="fa-solid fa-folder-open text-3xl mb-4 block"></i>
+                    No media services are currently active. Please trigger the database seed.
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Call to Custom Service -->
+        <div class="mt-20 p-8 md:p-12 rounded-2xl border border-slate-800 bg-slate-900/40 glass-card text-center max-w-4xl mx-auto space-y-6">
+            <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full flex items-center justify-center text-lg mx-auto"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3 class="font-outfit font-bold text-2xl text-white">Need a Bespoke Visual Strategy?</h3>
+            <p class="text-slate-400 text-sm max-w-xl mx-auto font-light leading-relaxed">
+                If your project demands a unique multi-cam broadcast setup, custom animations, or full-scale commercial videography campaigns, our directors can design a custom production package.
+            </p>
+            <div class="pt-4">
+                <a href="{% url 'bookings:create' %}" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/35 transition-all">Request Custom Media Brief</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

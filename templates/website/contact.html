@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-20">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Get in Touch</span>
+            <h1 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Contact Vanguard Team
+            </h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Have questions about filming, budgets, or custom
+                requirements? Leave us a line below.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <!-- Sidebar Details -->
+            <div class="space-y-8 lg:sticky lg:top-28">
+                <div class="space-y-4">
+                    <h2 class="font-outfit text-3xl font-bold text-white tracking-tight">Let's craft something legendary
+                    </h2>
+                    <p class="text-slate-400 leading-relaxed font-light">
+                        Vanguard Creative welcomes diverse creative requirements. Our visual coordinators will reply to
+                        all inquiries with an active evaluation summary within 2 business hours.
+                    </p>
+                </div>
+
+                <div class="space-y-6 pt-4">
+                    <!-- Office -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-map-location-dot"></i></div>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Headquarters</h4>
+                            <p class="text-sm text-slate-400 mt-1">Diamond Island, Phnom Penh, Cambodia</p>
+                        </div>
+                    </div>
+                    <!-- Phone -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Phone</h4>
+                            <p class="text-sm text-slate-400 mt-1">+855 16 590 899</p>
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4 class="font-outfit font-semibold text-slate-200 text-sm">Email</h4>
+                            <p class="text-sm text-slate-400 mt-1">longsengchhun@gamil.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="p-8 rounded-2xl glass-card glow-indigo">
+                <h3 class="font-outfit font-bold text-2xl text-white mb-6">Send Message Inquiry</h3>
+                <form method="POST" action="{% url 'website:contact' %}" class="space-y-5">
+                    {% csrf_token %}
+                    <div>
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Full
+                            Name</label>
+                        {{ form.name }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Email
+                            Address</label>
+                        {{ form.email }}
+                    </div>
+                    <div>
+                        <label
+                            class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Subject</label>
+                        {{ form.subject }}
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-2 block">Message
+                            Details</label>
+                        {{ form.message }}
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/35 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        Send Message <i class="fa-solid fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

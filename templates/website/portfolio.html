@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Portfolio | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-slate-950 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-16">
+            <span class="text-indigo-400 font-outfit text-sm font-semibold uppercase tracking-wider">Our Work</span>
+            <h1 class="font-outfit text-4xl md:text-5xl font-extrabold text-white tracking-tight">Featured Portfolio</h1>
+            <p class="text-slate-400 max-w-xl mx-auto font-light">Explore a curated collection of cinematic commercials, lifestyle photography, and premium digital brand designs.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap justify-center items-center gap-3 mb-12">
+            <button class="filter-btn px-5 py-2 bg-indigo-600 border border-transparent rounded-full text-white font-medium text-xs tracking-wider uppercase transition-all shadow-md" data-filter="all">All Projects</button>
+            <button class="filter-btn px-5 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-full text-slate-400 hover:text-white font-medium text-xs tracking-wider uppercase transition-all" data-filter="video">Cinematography</button>
+            <button class="filter-btn px-5 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-full text-slate-400 hover:text-white font-medium text-xs tracking-wider uppercase transition-all" data-filter="photo">Photography</button>
+            <button class="filter-btn px-5 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-full text-slate-400 hover:text-white font-medium text-xs tracking-wider uppercase transition-all" data-filter="design">Branding & Graphic</button>
+            <button class="filter-btn px-5 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-full text-slate-400 hover:text-white font-medium text-xs tracking-wider uppercase transition-all" data-filter="motion">Motion Graphic</button>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+            {% for item in portfolio_items %}
+                <div class="portfolio-item rounded-2xl overflow-hidden glass-card hover:-translate-y-1.5 transition-all duration-300 group" data-category="{{ item.category }}">
+                    <div class="aspect-video relative overflow-hidden bg-slate-900">
+                        <img src="{{ item.image }}" alt="{{ item.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-60"></div>
+                        <span class="absolute top-4 left-4 px-2.5 py-1 bg-indigo-600/90 text-white rounded font-outfit text-[10px] font-semibold uppercase tracking-wider">
+                            {% if item.category == 'video' %}Video
+                            {% elif item.category == 'photo' %}Photo
+                            {% elif item.category == 'design' %}Brand
+                            {% elif item.category == 'motion' %}Motion
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-indigo-400 transition-colors">{{ item.title }}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed font-light">{{ item.desc }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Filterable Portfolio Script
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active classes
+            filterButtons.forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white', 'border-transparent');
+                b.classList.add('bg-slate-900', 'text-slate-400', 'border-slate-800');
+            });
+
+            // Set active class
+            btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
+            btn.classList.add('bg-indigo-600', 'text-white', 'border-transparent');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            portfolioItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (filterValue === 'all' || filterValue === category) {
+                    item.style.display = 'block';
+                    // Trigger fade in animation
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

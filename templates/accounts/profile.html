@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile | Vanguard Creative{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        
+        <!-- Breadcrumb / Heading -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <div>
+                <a href="{% url 'dashboard:home' %}" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Dashboard</a>
+                <h1 class="font-outfit font-extrabold text-3xl text-white mt-2">Manage Profile</h1>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Sidebar Preview -->
+            <div class="p-6 rounded-2xl glass-card text-center space-y-4">
+                <div class="w-24 h-24 rounded-full overflow-hidden mx-auto border-2 border-indigo-600/30 bg-slate-900 flex items-center justify-center">
+                    {% if user.client_profile.profile_image %}
+                        <img src="{{ user.client_profile.profile_image.url }}" alt="{{ user.username }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <span class="text-3xl font-black font-outfit text-indigo-400">{{ user.username|slice:":2"|upper }}</span>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3 class="font-outfit font-bold text-lg text-white">{{ user.get_full_name|default:user.username }}</h3>
+                    <span class="text-xs text-indigo-400 capitalize font-medium">{{ user.get_role_display }}</span>
+                </div>
+                <hr class="border-slate-800">
+                <div class="text-left text-xs space-y-2 text-slate-400 leading-relaxed">
+                    <p><b>Registered:</b> {{ user.created_at|date:"F d, Y" }}</p>
+                    <p><b>Company:</b> {{ user.client_profile.company_name|default:"Not specified" }}</p>
+                </div>
+            </div>
+
+            <!-- Edit Form -->
+            <div class="p-8 rounded-2xl glass-card glow-indigo col-span-1 md:col-span-2">
+                <h3 class="font-outfit font-bold text-xl text-white mb-6">Profile Settings</h3>
+                <form method="POST" action="{% url 'accounts:profile' %}" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">First Name</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Email Address</label>
+                        {{ form.email }}
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Company Name</label>
+                            {{ form.company_name }}
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Phone Number</label>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Company Address</label>
+                        {{ form.address }}
+                    </div>
+
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Profile Image</label>
+                        {{ form.profile_image }}
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                            Save Changes <i class="fa-solid fa-circle-check text-xs"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

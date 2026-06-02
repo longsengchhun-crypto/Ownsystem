@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Project Status | Vanguard Creative{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-950">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="{% url 'bookings:detail' booking_id=booking.booking_id %}" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition-colors"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Booking</a>
+            <h1 class="font-outfit font-extrabold text-3xl text-white mt-2">Update Project Status</h1>
+            <p class="text-xs text-slate-400 mt-1">Modify milestones and team assignments for project <b>{{ booking.project_title }}</b>.</p>
+        </div>
+
+        <div class="p-8 rounded-2xl glass-card glow-indigo">
+            <form method="POST" action="{% url 'projects:project_update' project_id=project.id %}" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="p-4 rounded-lg bg-rose-950/20 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+                        Please correct the errors in the fields below.
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Progress Percentage (0 - 100%)</label>
+                    {{ form.progress_percentage }}
+                    {% if form.progress_percentage.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.progress_percentage.errors }}</span>{% endif %}
+                    <span class="text-[10px] text-slate-500 block mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Setting to 100% automatically converts the project's booking status to "Completed".</span>
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Target Completion Date</label>
+                    {{ form.completion_date }}
+                    {% if form.completion_date.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.completion_date.errors }}</span>{% endif %}
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Assigned Production Team</label>
+                    {{ form.assigned_team }}
+                    {% if form.assigned_team.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.assigned_team.errors }}</span>{% endif %}
+                    <span class="text-[10px] text-slate-500 block mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Document the specialists allocated (e.g., John Doe - Director, Tek Lengvannadalis - Drone).</span>
+                </div>
+
+                <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Milestone Logs & Dashboard Notes</label>
+                    {{ form.notes }}
+                    {% if form.notes.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.notes.errors }}</span>{% endif %}
+                    <span class="text-[10px] text-slate-500 block mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Log technical notes or links visible to the client inside their dashboard tracker.</span>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+                    <a href="{% url 'bookings:detail' booking_id=booking.booking_id %}" class="px-5 py-3 border border-slate-800 hover:bg-slate-900 rounded-xl font-semibold text-sm transition-colors text-slate-300">Cancel</a>
+                    <button type="submit" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/35 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        Save Status Updates <i class="fa-solid fa-circle-check text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

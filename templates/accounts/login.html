@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In | Vanguard Creative Media Agency{% endblock %}
+
+{% block content %}
+<section class="py-20 flex justify-center items-center bg-gradient-to-b from-slate-950 via-indigo-950/10 to-slate-950 min-h-[75vh]">
+    <div class="max-w-md w-full px-4">
+        <div class="p-8 rounded-2xl glass-card glow-indigo space-y-6">
+            
+            <div class="text-center space-y-2">
+                <h1 class="font-outfit font-extrabold text-3xl text-white">Welcome Back</h1>
+                <p class="text-xs text-slate-400">Log in to enter your creative agency project workspace.</p>
+            </div>
+            
+            <form method="POST" action="{% url 'accounts:login' %}" class="space-y-4">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="p-4 rounded-lg bg-rose-950/20 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                <div>
+                    <label class="text-slate-400 text-[10px] uppercase font-bold tracking-wider mb-2 block">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.username.errors }}</span>{% endif %}
+                </div>
+
+                <div>
+                    <label class="text-slate-400 text-[10px] uppercase font-bold tracking-wider mb-2 block">Password</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.password.errors }}</span>{% endif %}
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/35 transition-all hover:scale-[1.02] flex items-center justify-center gap-2">
+                        Log In <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="text-center pt-2">
+                <span class="text-slate-500 text-xs">New to Vanguard? <a href="{% url 'accounts:register' %}" class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">Become a Client</a></span>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

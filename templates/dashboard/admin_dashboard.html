@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Portal | Vanguard Creative{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 border-b border-slate-900 pb-6">
+            <div>
+                <h1 class="font-outfit font-extrabold text-3xl text-white">Administrator Operations</h1>
+                <p class="text-xs text-slate-400 mt-1">Vanguard Creative Agency management center.</p>
+            </div>
+            
+            <!-- Export Widget -->
+            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider hidden md:block">Export Report:</span>
+                <a href="{% url 'dashboard:export_excel' %}" class="w-full sm:w-auto px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow shadow-emerald-600/20 transition-all text-center flex items-center justify-center gap-1.5"><i class="fa-solid fa-file-excel"></i> Export Excel</a>
+                <a href="{% url 'dashboard:export_pdf' %}" class="w-full sm:w-auto px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow shadow-rose-600/20 transition-all text-center flex items-center justify-center gap-1.5"><i class="fa-solid fa-file-pdf"></i> Export PDF</a>
+            </div>
+        </div>
+
+        <!-- KPI SUMMARY METRICS -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+            <!-- Total Clients -->
+            <div class="p-6 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-20 h-24 bg-indigo-600/5 rounded-full blur-xl"></div>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Total Clients</span>
+                <span class="font-outfit font-black text-3xl text-white block mt-2">{{ total_clients }}</span>
+            </div>
+            <!-- Total Revenue -->
+            <div class="p-6 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-600/5 rounded-full blur-xl"></div>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Total Revenue</span>
+                <span class="font-outfit font-black text-3xl text-indigo-400 block mt-2">${{ total_revenue|floatformat:2 }}</span>
+            </div>
+            <!-- Pending Bookings -->
+            <div class="p-6 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-600/5 rounded-full blur-xl"></div>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Pending Bookings</span>
+                <span class="font-outfit font-black text-3xl text-amber-500 block mt-2">{{ pending_bookings }}</span>
+            </div>
+            <!-- Active Projects -->
+            <div class="p-6 rounded-2xl glass-card relative overflow-hidden group">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-600/5 rounded-full blur-xl"></div>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Active Projects</span>
+                <span class="font-outfit font-black text-3xl text-sky-400 block mt-2">{{ active_projects }}</span>
+            </div>
+            <!-- Pending Payments -->
+            <div class="p-6 rounded-2xl glass-card relative overflow-hidden group col-span-2 lg:col-span-1">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-600/5 rounded-full blur-xl"></div>
+                <span class="text-slate-500 text-[10px] uppercase font-bold tracking-wider block">Unpaid Invoices</span>
+                <span class="font-outfit font-black text-3xl text-rose-400 block mt-2">{{ pending_payments }}</span>
+            </div>
+        </div>
+
+        <!-- SEARCH AND FILTER INTERFACE -->
+        <div class="p-6 rounded-2xl glass-card mb-8 glow-indigo">
+            <h3 class="font-outfit font-bold text-sm text-slate-300 uppercase tracking-wider mb-4"><i class="fa-solid fa-sliders mr-2 text-indigo-500"></i>Search & Filters</h3>
+            <form method="GET" action="{% url 'dashboard:home' %}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <input type="text" name="q" value="{{ search_q }}" placeholder="Search client, title, ID..." class="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <select name="status" class="w-full bg-slate-900 border border-slate-800 text-slate-400 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors">
+                        <option value="">-- All Booking Statuses --</option>
+                        <option value="Pending" {% if status_f == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="Quoted" {% if status_f == 'Quoted' %}selected{% endif %}>Quoted</option>
+                        <option value="Awaiting Payment" {% if status_f == 'Awaiting Payment' %}selected{% endif %}>Awaiting Payment</option>
+                        <option value="In Progress" {% if status_f == 'In Progress' %}selected{% endif %}>In Progress</option>
+                        <option value="Completed" {% if status_f == 'Completed' %}selected{% endif %}>Completed</option>
+                        <option value="Delivered" {% if status_f == 'Delivered' %}selected{% endif %}>Delivered</option>
+                        <option value="Cancelled" {% if status_f == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                    </select>
+                </div>
+                <div>
+                    <select name="service" class="w-full bg-slate-900 border border-slate-800 text-slate-400 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors">
+                        <option value="">-- All Creative Services --</option>
+                        {% for s in services %}
+                            <option value="{{ s.id }}" {% if service_f == s.id|stringformat:"i" %}selected{% endif %}>{{ s.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition-all"><i class="fa-solid fa-magnifying-glass mr-1"></i> Apply Filters</button>
+                    <a href="{% url 'dashboard:home' %}" class="px-4 py-3 border border-slate-800 hover:bg-slate-900 text-slate-400 hover:text-white rounded-xl text-xs flex items-center justify-center" title="Reset Filters"><i class="fa-solid fa-rotate-left"></i></a>
+                </div>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- LEFT COLUMN: BOOKINGS & ACTIVE PROJECTS -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Bookings Table -->
+                <div class="p-6 rounded-2xl glass-card space-y-4">
+                    <h3 class="font-outfit font-bold text-xl text-white border-b border-slate-800 pb-3"><i class="fa-solid fa-list-check mr-2 text-indigo-500"></i>Creative Reservations Queue</h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="text-slate-500 border-b border-slate-800/80 uppercase font-semibold">
+                                    <th class="py-3 px-2">Booking ID</th>
+                                    <th class="py-3 px-2">Client / Project</th>
+                                    <th class="py-3 px-2">Price Budget</th>
+                                    <th class="py-3 px-2 text-center">Status</th>
+                                    <th class="py-3 px-2 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for b in bookings %}
+                                    <tr class="border-b border-slate-900 hover:bg-slate-900/20 transition-colors
+                                        {% if b.status == 'Pending' %} bg-indigo-950/5 border-l-2 border-l-indigo-500 {% endif %}">
+                                        <td class="py-4 px-2 font-mono font-bold text-indigo-400">{{ b.booking_id }}</td>
+                                        <td class="py-4 px-2">
+                                            <span class="font-bold text-slate-200 block">{{ b.project_title|truncatechars:35 }}</span>
+                                            <span class="text-[10px] text-slate-500 block mt-0.5"><i class="fa-regular fa-user mr-1"></i>{{ b.client.get_full_name|default:b.client.username }}</span>
+                                        </td>
+                                        <td class="py-4 px-2 font-outfit font-semibold text-slate-300">${{ b.budget|floatformat:2 }}</td>
+                                        <td class="py-4 px-2 text-center">
+                                            <span class="px-2.5 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase
+                                                {% if b.status == 'Pending' %} bg-slate-800 text-slate-300
+                                                {% elif b.status == 'Quoted' or b.status == 'Awaiting Payment' %} bg-amber-950/40 text-amber-300 border border-amber-500/20
+                                                {% elif b.status == 'Paid' or b.status == 'In Progress' %} bg-indigo-950/40 text-indigo-300 border border-indigo-500/20
+                                                {% elif b.status == 'Completed' or b.status == 'Delivered' %} bg-emerald-950/40 text-emerald-300 border border-emerald-500/20
+                                                {% else %} bg-rose-950/40 text-rose-300 border border-rose-500/20 {% endif %}">
+                                                {{ b.status }}
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-2 text-right flex gap-1.5 justify-end">
+                                            <a href="{% url 'bookings:detail' booking_id=b.booking_id %}" class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-lg font-semibold text-slate-300 transition-colors" title="View workspace"><i class="fa-regular fa-folder-open"></i></a>
+                                            {% if b.status == 'Pending' %}
+                                                <a href="{% url 'quotations:create' booking_id=b.booking_id %}" class="px-2.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold shadow transition-colors" title="Issue quotation"><i class="fa-solid fa-file-invoice-dollar"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="py-8 text-center text-slate-500">No creative reservations matches these query filters.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Active Projects timelines -->
+                <div class="p-6 rounded-2xl glass-card space-y-4">
+                    <h3 class="font-outfit font-bold text-xl text-white border-b border-slate-800 pb-3"><i class="fa-solid fa-person-digging mr-2 text-indigo-500"></i>Active Production Workspace</h3>
+                    
+                    <div class="space-y-6">
+                        {% for p in projects %}
+                            <div class="p-4 rounded-xl border border-slate-900 bg-slate-900/10 space-y-3">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-outfit font-bold text-slate-200 text-sm block">{{ p.booking.project_title }}</h4>
+                                        <span class="text-[10px] text-slate-500 block mt-0.5"><i class="fa-regular fa-user mr-1"></i>Client: {{ p.booking.client.username }} — Ref: {{ p.booking.booking_id }}</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-outfit font-black text-indigo-400 text-xs">{{ p.progress_percentage }}%</span>
+                                        <a href="{% url 'projects:project_update' project_id=p.id %}" class="p-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors" title="Modify milestones"><i class="fa-regular fa-edit text-xs"></i></a>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                    <div class="bg-indigo-600 h-full rounded-full transition-all duration-500" style="width: {{ p.progress_percentage }}%"></div>
+                                </div>
+                                <div class="text-[10px] text-slate-500 flex justify-between">
+                                    <span><i class="fa-regular fa-calendar-days mr-1"></i>Launched: {{ p.start_date|date:"Y-m-d" }}</span>
+                                    <span><i class="fa-regular fa-circle-check mr-1"></i>Status: {{ p.booking.status }}</span>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="py-10 text-center text-slate-500 text-xs">No active production timelines currently recorded.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: PAYMENTS & MESSAGES -->
+            <div class="space-y-8">
+                
+                <!-- Payment verification ledger -->
+                <div class="p-6 rounded-2xl glass-card space-y-4">
+                    <h3 class="font-outfit font-bold text-lg text-white border-b border-slate-800 pb-3"><i class="fa-solid fa-receipt mr-2 text-indigo-500"></i>Unverified Payment Receipts</h3>
+                    
+                    <div class="space-y-4 max-h-[350px] overflow-y-auto pr-1">
+                        {% for p in payments %}
+                            {% if p.payment_status == 'Pending Verification' %}
+                                <div class="p-4 rounded-xl border border-indigo-500/20 bg-slate-900/40 glow-indigo space-y-3 text-xs leading-relaxed">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <span class="font-mono font-bold text-slate-200 block truncate max-w-[140px]">{{ p.payment_reference }}</span>
+                                            <span class="text-[9px] text-slate-500 block mt-0.5">{{ p.booking.booking_id }} — Client: {{ p.booking.client.username }}</span>
+                                        </div>
+                                        <span class="font-outfit font-black text-indigo-400 text-sm">${{ p.amount|floatformat:2 }}</span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800/80">
+                                        <a href="{% url 'bookings:detail' booking_id=p.booking.booking_id %}" class="py-1.5 border border-slate-800 hover:bg-slate-900 rounded-lg text-slate-300 hover:text-white text-center font-semibold text-[10px]">Review proof</a>
+                                        <a href="{% url 'payments:verify' payment_id=p.id action='approve' %}" class="py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-center font-bold text-[10px] shadow-sm flex items-center justify-center gap-1"><i class="fa-solid fa-circle-check"></i> Verify</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% empty %}
+                            <div class="py-8 text-center text-slate-500 text-xs">All payment receipts successfully verified.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Support inquiries messages -->
+                <div class="p-6 rounded-2xl glass-card space-y-4">
+                    <h3 class="font-outfit font-bold text-lg text-white border-b border-slate-800 pb-3"><i class="fa-regular fa-comments mr-2 text-indigo-500"></i>Contact Form Inquiries</h3>
+                    
+                    <div class="space-y-4 max-h-[350px] overflow-y-auto pr-1">
+                        {% for m in messages %}
+                            <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/30 text-xs space-y-2">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="font-bold text-slate-200 block">{{ m.name }}</span>
+                                        <span class="text-[9px] text-slate-500 block mt-0.5">{{ m.email }}</span>
+                                    </div>
+                                    <span class="text-[9px] text-slate-500">{{ m.created_at|date:"Y-m-d" }}</span>
+                                </div>
+                                <p class="text-slate-300 italic bg-slate-950 p-2.5 rounded-lg border border-slate-900 leading-relaxed font-light">"{{ m.message|truncatechars:100 }}"</p>
+                            </div>
+                        {% empty %}
+                            <div class="py-6 text-center text-slate-500 text-xs">No support inquiries received.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
