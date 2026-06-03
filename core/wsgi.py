@@ -15,5 +15,10 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 application = get_wsgi_application()
 
+if os.getenv('VERCEL'):
+    from django.core.management import call_command
+
+    call_command('migrate', interactive=False, run_syncdb=True, verbosity=0)
+
 # Vercel's Python runtime looks for a WSGI callable named `app`.
 app = application
