@@ -32,14 +32,14 @@ def payment_upload(request, booking_id):
             # Notify admins
             notify_admin(
                 title=f"Payment Proof Submitted for {booking.booking_id}",
-                message=f"Client {request.user.username} has uploaded manual payment proof for project '{booking.project_title}'.\nReference: {payment.payment_reference}\nAmount: ${payment.amount}\nPlease verify the details in the dashboard."
+                message=f"Client {request.user.username} has uploaded payment proof for project '{booking.project_title}'.\nMethod: {payment.payment_method}\nReference: {payment.payment_reference}\nAmount: ${payment.amount}\nPlease verify the details in the dashboard."
             )
             
             # Notify client
             trigger_notification(
                 user=request.user,
                 title="Payment Proof Uploaded",
-                message=f"Your payment proof (Ref: {payment.payment_reference}) of ${payment.amount} has been uploaded and is pending verification.",
+                message=f"Your {payment.payment_method} payment proof (Ref: {payment.payment_reference}) of ${payment.amount} has been uploaded and is pending verification.",
                 send_email=True
             )
             
@@ -47,7 +47,7 @@ def payment_upload(request, booking_id):
     else:
         quotation = getattr(booking, 'quotation', None)
         initial_amount = quotation.amount if quotation else booking.budget
-        form = PaymentForm(initial={'amount': initial_amount})
+        form = PaymentForm(initial={'amount': initial_amount, 'payment_method': 'ABA Bakong KHQR'})
         
     return render(request, 'payments/payment_form.html', {
         'form': form,
@@ -87,7 +87,7 @@ def payment_verify(request, payment_id, action):
         trigger_notification(
             user=booking.client,
             title="Payment Approved - Production Launch",
-            message=f"Success! Your payment of ${payment.amount} (Ref: {payment.payment_reference}) has been verified. Production has launched for '{booking.project_title}'. Track dynamic milestones in your dashboard.",
+            message=f"Success! Your {payment.payment_method} payment of ${payment.amount} (Ref: {payment.payment_reference}) has been verified. Production has launched for '{booking.project_title}'. Track dynamic milestones in your dashboard.",
             send_email=True
         )
     elif action == 'reject':
@@ -104,7 +104,7 @@ def payment_verify(request, payment_id, action):
         trigger_notification(
             user=booking.client,
             title="Payment Verification Failed",
-            message=f"We could not verify your payment proof (Ref: {payment.payment_reference}) of ${payment.amount}. Please double check the transaction details and re-upload the valid screenshot.",
+            message=f"We could not verify your {payment.payment_method} payment proof (Ref: {payment.payment_reference}) of ${payment.amount}. Please double check the transaction details and re-upload the valid screenshot.",
             send_email=True
         )
     else:

@@ -2,6 +2,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 from django.db import models
 from django.http import HttpResponse
 from accounts.models import User
@@ -72,6 +73,12 @@ def dashboard_home(request):
         pending_payments = Booking.objects.filter(status='Awaiting Payment').count()
 
         services = Service.objects.filter(active=True)
+        notification_status = {
+            'email_ready': bool(settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD and settings.ADMIN_EMAIL_NOTIFICATION),
+            'telegram_ready': bool(settings.TELEGRAM_BOT_TOKEN and settings.TELEGRAM_CHAT_ID),
+            'admin_email': settings.ADMIN_EMAIL_NOTIFICATION,
+            'telegram_chat_id': settings.TELEGRAM_CHAT_ID,
+        }
 
         context = {
             'total_clients': total_clients,
@@ -88,6 +95,7 @@ def dashboard_home(request):
             'search_q': search_q,
             'status_f': status_f,
             'service_f': service_f,
+            'notification_status': notification_status,
         }
         return render(request, 'dashboard/admin_dashboard.html', context)
         

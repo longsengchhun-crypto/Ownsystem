@@ -7,8 +7,13 @@ class Payment(models.Model):
         ('Approved', 'Approved'),
         ('Rejected', 'Rejected'),
     )
+    METHOD_CHOICES = (
+        ('ABA Bakong KHQR', 'ABA Bakong KHQR'),
+        ('Manual ABA Transfer', 'Manual ABA Transfer'),
+    )
     
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='payments')
+    payment_method = models.CharField(max_length=30, choices=METHOD_CHOICES, default='ABA Bakong KHQR')
     payment_reference = models.CharField(max_length=100, unique=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     screenshot = models.ImageField(upload_to='screenshots/')

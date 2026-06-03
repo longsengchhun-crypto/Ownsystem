@@ -196,33 +196,45 @@
                     </div>
                 {% endif %}
 
-                <!-- MANUAL ABA PAYMENT TRANSFER PANEL -->
+                <!-- ABA / BAKONG KHQR PAYMENT PANEL -->
                 {% if booking.status == 'Awaiting Payment' %}
                     <div class="p-6 rounded-2xl glass-card glow-indigo border border-indigo-500/20 space-y-6">
-                        <h3 class="font-outfit font-bold text-lg text-white border-b border-slate-800 pb-3"><i class="fa-solid fa-qrcode mr-2 text-indigo-500"></i>ABA Bank QR Payment</h3>
+                        <h3 class="font-outfit font-bold text-lg text-white border-b border-slate-800 pb-3"><i class="fa-solid fa-qrcode mr-2 text-indigo-500"></i>ABA / Bakong KHQR Payment</h3>
                         
                         <div class="space-y-4">
-                            <!-- Premium ABA QR Mockup Container -->
-                            <div class="bg-white rounded-2xl p-4 flex flex-col items-center justify-center max-w-[240px] mx-auto shadow-xl">
-                                <!-- Mockup ABA QR Image -->
-                                <img src="/static/images/aba_pay_qr.png" alt="ABA Pay QR Code" class="w-full h-auto rounded-lg">
-                                <div class="mt-3 flex items-center gap-1.5 text-slate-900 font-outfit font-black text-sm tracking-tight border-t border-slate-100 pt-2.5 w-full justify-center">
-                                    <div class="w-4 h-4 bg-indigo-600 rounded flex items-center justify-center font-black text-white text-[10px]">V</div>
-                                    <span>VANGUARD <span class="text-indigo-600">CREATIVE</span></span>
+                            {% if khqr_payment %}
+                                <!-- Dynamic KHQR Container -->
+                                <div class="bg-white rounded-2xl p-4 flex flex-col items-center justify-center max-w-[260px] mx-auto shadow-xl">
+                                    <div class="w-full flex items-center justify-between text-slate-900 border-b border-slate-100 pb-3 mb-3">
+                                        <span class="font-outfit font-black text-sm">KHQR</span>
+                                        <span class="text-[10px] font-bold text-rose-600 uppercase">ABA / Bakong</span>
+                                    </div>
+                                    <img src="{{ khqr_payment.qr_data_uri }}" alt="Dynamic Bakong KHQR code for {{ booking.booking_id }}" class="w-full h-auto rounded-lg">
+                                    <div class="mt-3 flex items-center gap-1.5 text-slate-900 font-outfit font-black text-sm tracking-tight border-t border-slate-100 pt-2.5 w-full justify-center">
+                                        <div class="w-4 h-4 bg-indigo-600 rounded flex items-center justify-center font-black text-white text-[10px]">V</div>
+                                        <span>VANGUARD <span class="text-indigo-600">CREATIVE</span></span>
+                                    </div>
+                                    <div class="mt-2 text-center">
+                                        <p class="text-[10px] text-slate-500 font-mono">Bill: {{ booking.booking_id }}</p>
+                                        <p class="text-xs text-slate-900 font-outfit font-black">${{ quotation.amount|floatformat:2 }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
 
                             <div class="text-xs space-y-2 text-slate-400 bg-slate-900/40 p-4 border border-slate-800 rounded-xl">
-                                <p class="text-slate-300 font-semibold mb-1"><i class="fa-solid fa-circle-info mr-1 text-indigo-500"></i>Manual Payment Guide:</p>
-                                <p>1. Open your ABA Bank Mobile application.</p>
-                                <p>2. Scan the QR code or execute a transfer to:</p>
+                                <p class="text-slate-300 font-semibold mb-1"><i class="fa-solid fa-circle-info mr-1 text-indigo-500"></i>Payment Options:</p>
+                                <p>1. Open ABA Mobile, Bakong, or another KHQR-supported bank app.</p>
+                                <p>2. Scan the generated QR code above. The bill amount and booking reference are embedded in the QR.</p>
+                                <p>3. If scanning is unavailable, transfer manually to:</p>
                                 <div class="bg-slate-950 p-2.5 border border-slate-800 rounded-lg text-slate-200 mt-2 font-mono text-[11px] space-y-1">
-                                    <p><b>Name:</b> VANGUARD CREATIVE CO., LTD.</p>
-                                    <p><b>Account:</b> 000 789 123</p>
+                                    <p><b>Name:</b> {{ khqr_payment.account_name|default:"VANGUARD CREATIVE CO., LTD." }}</p>
+                                    <p><b>ABA Account:</b> {{ khqr_payment.account_number|default:"000 789 123" }}</p>
+                                    <p><b>Bakong ID:</b> {{ khqr_payment.bakong_account_id|default:"vanguardcreative@aba" }}</p>
                                     <p><b>Amount:</b> ${{ quotation.amount|floatformat:2 }}</p>
+                                    <p><b>Bill No:</b> {{ booking.booking_id }}</p>
                                 </div>
-                                <p class="pt-2">3. Save your transaction receipt screenshot.</p>
-                                <p>4. Upload the receipt file and type your transfer reference code below.</p>
+                                <p class="pt-2">4. Save your transaction receipt screenshot.</p>
+                                <p>5. Upload the receipt file and type your transfer reference code below.</p>
                             </div>
                         </div>
 
@@ -249,6 +261,7 @@
                         </div>
                         <div class="space-y-3 text-xs text-slate-400 bg-slate-900/40 p-4 border border-slate-800 rounded-xl leading-relaxed">
                             <p><b>Reference ID:</b> {{ payment.payment_reference }}</p>
+                            <p><b>Method:</b> {{ payment.payment_method }}</p>
                             <p><b>Amount Submitted:</b> ${{ payment.amount|floatformat:2 }}</p>
                             <p><b>Submission Date:</b> {{ payment.submitted_at|date:"F d, Y — H:i" }}</p>
                             

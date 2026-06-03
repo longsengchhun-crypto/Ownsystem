@@ -55,6 +55,42 @@
             </div>
         </div>
 
+        <!-- NOTIFICATION CHANNEL STATUS -->
+        <div class="p-5 rounded-2xl glass-card mb-8 border border-slate-800/80">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h3 class="font-outfit font-bold text-sm text-slate-200 uppercase tracking-wider"><i class="fa-solid fa-bell mr-2 text-indigo-400"></i>Notification Channels</h3>
+                    <p class="text-xs text-slate-500 mt-1">External email and Telegram alerts use your current .env settings.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full md:w-auto">
+                    <div class="px-4 py-3 rounded-xl border {% if notification_status.email_ready %}border-emerald-500/30 bg-emerald-950/20{% else %}border-amber-500/30 bg-amber-950/20{% endif %}">
+                        <span class="text-[10px] uppercase font-bold tracking-wider {% if notification_status.email_ready %}text-emerald-300{% else %}text-amber-300{% endif %}">
+                            <i class="fa-solid {% if notification_status.email_ready %}fa-circle-check{% else %}fa-triangle-exclamation{% endif %} mr-1"></i>Email
+                        </span>
+                        <span class="block text-xs text-slate-400 mt-1">
+                            {% if notification_status.email_ready %}
+                                Sending to {{ notification_status.admin_email }}
+                            {% else %}
+                                Add EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, and ADMIN_EMAIL_NOTIFICATION
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="px-4 py-3 rounded-xl border {% if notification_status.telegram_ready %}border-emerald-500/30 bg-emerald-950/20{% else %}border-amber-500/30 bg-amber-950/20{% endif %}">
+                        <span class="text-[10px] uppercase font-bold tracking-wider {% if notification_status.telegram_ready %}text-emerald-300{% else %}text-amber-300{% endif %}">
+                            <i class="fa-solid {% if notification_status.telegram_ready %}fa-circle-check{% else %}fa-triangle-exclamation{% endif %} mr-1"></i>Telegram
+                        </span>
+                        <span class="block text-xs text-slate-400 mt-1">
+                            {% if notification_status.telegram_ready %}
+                                Sending to chat {{ notification_status.telegram_chat_id }}
+                            {% else %}
+                                Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- SEARCH AND FILTER INTERFACE -->
         <div class="p-6 rounded-2xl glass-card mb-8 glow-indigo">
             <h3 class="font-outfit font-bold text-sm text-slate-300 uppercase tracking-wider mb-4"><i class="fa-solid fa-sliders mr-2 text-indigo-500"></i>Search & Filters</h3>
@@ -194,6 +230,7 @@
                                         <div>
                                             <span class="font-mono font-bold text-slate-200 block truncate max-w-[140px]">{{ p.payment_reference }}</span>
                                             <span class="text-[9px] text-slate-500 block mt-0.5">{{ p.booking.booking_id }} — Client: {{ p.booking.client.username }}</span>
+                                            <span class="text-[9px] text-indigo-300 block mt-0.5">{{ p.payment_method }}</span>
                                         </div>
                                         <span class="font-outfit font-black text-indigo-400 text-sm">${{ p.amount|floatformat:2 }}</span>
                                     </div>

@@ -4,8 +4,11 @@ from .models import Payment
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['payment_reference', 'amount', 'screenshot']
+        fields = ['payment_method', 'payment_reference', 'amount', 'screenshot']
         widgets = {
+            'payment_method': forms.Select(attrs={
+                'class': 'w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500',
+            }),
             'payment_reference': forms.TextInput(attrs={
                 'class': 'w-full bg-slate-900 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500',
                 'placeholder': 'e.g., ABA-1002348'

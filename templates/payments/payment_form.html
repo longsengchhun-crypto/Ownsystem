@@ -24,6 +24,13 @@
                 {% endif %}
 
                 <div>
+                    <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Payment Method</label>
+                    {{ form.payment_method }}
+                    {% if form.payment_method.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.payment_method.errors }}</span>{% endif %}
+                    <span class="text-[10px] text-slate-500 block mt-1"><i class="fa-solid fa-circle-info mr-1"></i>Choose KHQR if you scanned the generated ABA/Bakong code.</span>
+                </div>
+
+                <div>
                     <label class="text-[10px] text-slate-400 uppercase font-bold tracking-wider mb-2 block">Transaction Reference ID</label>
                     {{ form.payment_reference }}
                     {% if form.payment_reference.errors %}<span class="text-rose-400 text-[10px] mt-1 block">{{ form.payment_reference.errors }}</span>{% endif %}

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 from .models import Booking
 from .forms import BookingForm
 from notifications.utils import notify_admin, trigger_notification
+from payments.khqr import build_khqr_payload, qr_data_uri
 
 @login_required
 def booking_create(request):
@@ -56,11 +58,30 @@ def booking_detail(request, booking_id):
     quotation = getattr(booking, 'quotation', None)
     payment = booking.payments.order_by('-submitted_at').first()
     project = getattr(booking, 'project', None)
+    khqr_payment = None
+
+    if quotation and booking.status == 'Awaiting Payment':
+        payload = build_khqr_payload(
+            bakong_account_id=settings.ABA_BAKONG_ACCOUNT_ID,
+            merchant_name=settings.ABA_BANK_ACCOUNT_NAME,
+            merchant_city=settings.ABA_KHQR_MERCHANT_CITY,
+            amount=quotation.amount,
+            bill_number=booking.booking_id,
+        )
+        khqr_payment = {
+            'payload': payload,
+            'qr_data_uri': qr_data_uri(payload),
+            'account_name': settings.ABA_BANK_ACCOUNT_NAME,
+            'account_number': settings.ABA_BANK_ACCOUNT_NUMBER,
+            'bakong_account_id': settings.ABA_BAKONG_ACCOUNT_ID,
+            'merchant_city': settings.ABA_KHQR_MERCHANT_CITY,
+        }
     
     context = {
         'booking': booking,
         'quotation': quotation,
         'payment': payment,
         'project': project,
+        'khqr_payment': khqr_payment,
     }
     return render(request, 'bookings/booking_detail.html', context)
